@@ -3,17 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <title>Films</title>
 </head>
 <body>
-    <form id="form">
-        <input id="film_name" type="text" placeholder="Film">
-        <input id="film_director" type="text" placeholder="Director">
-        <input id="add_film" type="submit" value="Add">
-        <button id="delete_all_button" type="button">Delete All</button>
-    </form>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <form id="form">
+                    <div class="form-group">
+                        <label for="film_name">Film</label>
+                        <input id="film_name" class="form-control" type="text" placeholder="Film">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="film_director">Director</label>
+                        <input id="film_director" class="form-control" type="text" placeholder="Director">
+                    </div>
+                    
+                    <input id="add_film" class="btn btn-primary" type="submit" value="Add">
+                    <button id="delete_all_button" class="btn btn-primary" type="button">Delete All</button>
+                </form>
+            </div>
+            
+            <div class="col-md-8">
+                <ul id="films" class="list-group"></ul>
+            </div>
+        </div>
+    </div>
 
-    <ul id="films"></ul>
 
     <script src="javascript/ui.js"></script>
     <script src="javascript/film.js"></script>
