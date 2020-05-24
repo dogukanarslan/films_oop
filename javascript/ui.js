@@ -18,8 +18,10 @@ class UI {
     }
 
     static deleteAllFilms() {
-        while(films.firstElementChild) {
-            films.firstElementChild.remove();
+        if(confirm('All films will be deleted. Are you sure?')) {
+            while(films.firstElementChild) {
+                films.firstElementChild.remove();
+            }
         }
     }
 }
