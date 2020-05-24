@@ -8,28 +8,22 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-4">
-                <form id="form">
-                    <div class="form-group">
-                        <label for="film_name">Film</label>
-                        <input id="film_name" class="form-control" type="text" placeholder="Film">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="film_director">Director</label>
-                        <input id="film_director" class="form-control" type="text" placeholder="Director">
-                    </div>
-                    
-                    <input id="add_film" class="btn btn-primary" type="submit" value="Add">
-                    <button id="delete_all_button" class="btn btn-primary" type="button">Delete All</button>
-                </form>
+       <form id="form">
+            <div class="form-group">
+                <label for="film_name">Film</label>
+                <input id="film_name" class="form-control" type="text" placeholder="Film" required>
             </div>
-            
-            <div class="col-md-8">
-                <ul id="films" class="list-group"></ul>
+            <div class="form-group">
+                <label for="film_director">Director</label>
+                <input id="film_director" class="form-control" type="text" placeholder="Director" required>
             </div>
-        </div>
+            <input id="add_film" class="btn btn-primary" type="submit" value="Add">
+            <button id="delete_all_button" class="btn btn-primary" type="button">Delete All</button>
+        </form>
+    </div>
+
+    <div class="container-fluid mt-4">
+        <ul id="films" class="list-group"></ul>
     </div>
 
 
