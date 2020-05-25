@@ -6,14 +6,15 @@ const delete_all_button = document.querySelector('#delete_all_button');
 
 const eventListeners = () => {
     form.addEventListener('submit', addFilm);
-    delete_all_button.addEventListener('click', UI.deleteAllFilms);
+    delete_all_button.addEventListener('click', deleteAllFilms);
+    document.addEventListener('DOMContentLoaded', loadFilms);
 }
 
 const addFilm = (event) => {
     event.preventDefault();
     const film = new Film(film_name_input.value, film_director_input.value);
-    UI.addFilm(event, film);
-
+    UI.addFilm(film);
+    Storage.addFilm(film);
     clearInputs(film_name_input, film_director_input);
 }
 
@@ -21,4 +22,19 @@ const clearInputs = (...element) => {
     element.forEach(element => element.value = '');
 }
 
+const deleteAllFilms = () => {
+    if(confirm('All films will be deleted. Are you sure?')) {
+        UI.deleteAllFilms();
+        Storage.deleteAllFilms();
+    }
+}
+
+const loadFilms = () => {
+    UI.loadFilms();
+}
+
+const validate = () => {
+    film_director_input.value = film_director_input.value.replace(/[^a-zA-Z ]+/, '')
+}
+ 
 eventListeners();
