@@ -15,10 +15,11 @@ class Storage {
         localStorage.setItem('films', JSON.stringify(films));
     }
 
-    static deleteFilm(film) {
+    static deleteFilm(film_element) {
+        let film_name = film_element.previousSibling.previousSibling.textContent;
         let films = this.getFilms();
         films.forEach((item, index) => {
-            if (item.name === film.name) {
+            if (item.name === film_name) {
                 films.splice(index, 1);
             }
         })
