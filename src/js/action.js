@@ -14,7 +14,7 @@ const eventListeners = () => {
 const addFilm = (event) => {
     event.preventDefault();
     const film = new Film(film_name_input.value, film_director_input.value);
-    film_element = film.createElement();
+    const film_element = film.createElement();
     UI.addFilm(film);
     Storage.addFilm(film);
     clearInputs(film_name_input, film_director_input);

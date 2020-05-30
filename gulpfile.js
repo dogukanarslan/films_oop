@@ -1,55 +1,63 @@
 // Initialize modules
-const {src, dest, watch, series, parallel} = require('gulp')
-const autoprefixer = require('autoprefixer');
-const cssnano = require('cssnano');
+const gulp = require('gulp')
+const babel = require('gulp-babel');
+const autoprefixer = require('gulp-autoprefixer');
+const minifyCSS = require('gulp-csso');
 const concat =  require('gulp-concat');
-const postcss = require('gulp-postcss');
-const replace = require('gulp-replace');
+const minifyJS = require('gulp-uglify');
 const sass = require('gulp-sass');
-const sourcemaps = require('gulp-sourcemaps');
-const terser = require('gulp-terser');
+const browserSync = require('browser-sync').create();
+const del = require('del');
+const runSequence = require('run-sequence');
 
-// File path variables
-const files = {
-    scssPath: 'app/scss/**/*.scss',
-    jsPath: 'app/js/**/*.js'
-}
+gulp.task('browser-sync', () => {
+  browserSync.init({
+    server: {
+      baseDir: 'dist'
+    }
+  });
+})
 
-// Sass task
-function scssTask() {
-    return src(files.scssPath)
-    .pipe(sourcemaps.init())
-    .pipe(sass())
-    .pipe(postcss([autoprefixer(), cssnano()]))
-    .pipe(sourcemaps.write('.'))
-    .pipe(dest('dist'));
-}
+gulp.task('css', () => {
+  return gulp.src('src/scss/**/*.scss')
+  .pipe(sass())
+  .pipe(minifyCSS())
+  .pipe(autoprefixer())
+  .pipe(concat('app.min.css'))
+  .pipe(gulp.dest('dist/css'))
+  .pipe(browserSync.stream());
+})
 
-// JS task
-function jsTask() {
-    return src(files.jsPath)
-    .pipe(concat('all.js'))
-    .pipe(terser())
-    .pipe(dest('dist'));
-}
+gulp.task('js', () => {
+  return gulp.src('src/js/**/*.js')
+  .pipe(babel({presets: ['@babel/env']}))
+  .pipe(concat('app.min.js'))
+  .pipe(minifyJS())
+  .pipe(gulp.dest('dist/js'))
+  .pipe(browserSync.stream());
+})
 
-// Cachebusting task
-const cbString = new Date().getTime();
-function cacheBustTask() {
-    return src(['index.html'])
-    .pipe(replace(/cb=\d+/g, 'cb=' + cbString))
-    .pipe(dest('.'));
-}
+gulp.task('html', () => {
+  return gulp.src('src/**/*.html')
+  .pipe(gulp.dest('dist'))
+  .pipe(browserSync.stream());
+})
 
-// Watch task
-function watchTask() {
-    watch([files.scssPath, files.jsPath], parallel(scssTask, jsTask))
-}
+gulp.task('delete', () => del(['dist/css', 'dist/js', 'dist/**/*.html']));
 
-// Default task
-exports.default = series(
-    parallel(scssTask, jsTask),
-    cacheBustTask,
-    watchTask
-)
+gulp.task('watch', () => {
+  gulp.watch('src/**/*.html', ['html'])
+  gulp.watch('src/scss/**/*.scss', ['css'])
+  gulp.watch('src/js/**/*.js', ['js'])
+})
 
+gulp.task('default', () => {
+  runSequence(
+    'delete',
+    'html',
+    'css',
+    'js',
+    'browser-sync',
+    'watch'
+  );
+});

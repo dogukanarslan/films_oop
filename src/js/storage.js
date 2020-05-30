@@ -16,7 +16,7 @@ class Storage {
     }
 
     static deleteFilm(film_element) {
-        let film_name = film_element.previousSibling.previousSibling.textContent;
+        let film_name = film_element.parentElement.firstElementChild.textContent;
         let films = this.getFilms();
         films.forEach((item, index) => {
             if (item.name === film_name) {
