@@ -14,6 +14,7 @@ const eventListeners = () => {
     form.addEventListener('submit', addFilm);
     films.addEventListener('click', deleteFilm);
     delete_all_button.addEventListener('click', deleteAllFilms);
+    film_director_input.addEventListener('keyup', validate);
     document.addEventListener('DOMContentLoaded', loadFilms);
 }
 
