@@ -1,3 +1,6 @@
+import {Storage} from './storage';
+import {Film} from './film'
+
 class UI {
     static addFilm(film) {
         films.innerHTML += film.createElement(film.name, film.director);
@@ -21,3 +24,5 @@ class UI {
         })
     }
 }
+
+export {UI}

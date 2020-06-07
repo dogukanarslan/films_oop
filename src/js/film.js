@@ -13,3 +13,5 @@ class Film {
         return film_element;
     }
 }
+
+export {Film}

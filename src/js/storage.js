@@ -32,3 +32,5 @@ class Storage {
 
 
 }
+
+export {Storage}
