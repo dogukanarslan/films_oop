@@ -9,6 +9,8 @@ const sass = require('gulp-sass');
 const browserSync = require('browser-sync').create();
 const del = require('del');
 const runSequence = require('run-sequence');
+const source = require('vinyl-source-stream');
+const browserify = require('browserify');
 
 gulp.task('browser-sync', () => {
   browserSync.init({
@@ -16,6 +18,24 @@ gulp.task('browser-sync', () => {
       baseDir: 'dist'
     }
   });
+})
+
+gulp.task('browser', function() {
+
+  var bundler = browserify({
+    entries: 'packages/packages.js',
+    cache: {}, packageCache: {}, fullPaths: true, debug: true
+  });
+
+  var bundle = function() {
+    return bundler
+      .bundle()
+      .on('error', function () {})
+      .pipe(source('packages.js'))
+      .pipe(gulp.dest('dist/js'))
+      .pipe(browserSync.stream());
+  };
+  return bundle();
 })
 
 gulp.task('css', () => {
@@ -49,12 +69,14 @@ gulp.task('watch', () => {
   gulp.watch('src/**/*.html', ['html'])
   gulp.watch('src/scss/**/*.scss', ['css'])
   gulp.watch('src/js/**/*.js', ['js'])
+  gulp.watch('packages/packages.js', ['browser'])
 })
 
 gulp.task('default', () => {
   runSequence(
     'delete',
     'html',
+    'browser',
     'css',
     'js',
     'browser-sync',

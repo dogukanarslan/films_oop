@@ -54,10 +54,8 @@ const clearInputs = (...element) => {
 }
 
 const deleteAllFilms = () => {
-    if(confirm('All films will be deleted. Are you sure?')) {
-        UI.deleteAllFilms();
-        Storage.deleteAllFilms();
-    }
+    UI.deleteAllFilms();
+    Storage.deleteAllFilms();
 }
 
 const loadFilms = () => {
