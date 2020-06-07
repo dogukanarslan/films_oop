@@ -13,11 +13,33 @@ const eventListeners = () => {
 
 const addFilm = (event) => {
     event.preventDefault();
-    const film = new Film(film_name_input.value, film_director_input.value);
-    const film_element = film.createElement();
-    UI.addFilm(film);
-    Storage.addFilm(film);
-    clearInputs(film_name_input, film_director_input);
+    if (!film_name_input.value || !film_director_input.value) {
+        if (!film_name_input.value) {
+            const warning = document.createElement('div');
+            warning.className = 'alert alert-danger p-2';
+            warning.setAttribute('role', 'alert');
+            const warning_box = document.querySelectorAll('.col-md-6')[0]
+            warning.textContent = 'This field cannot be left blank';
+            warning_box.appendChild(warning);
+            setTimeout(() => warning.remove(),2000);
+        }
+
+        if (!film_director_input.value) {
+            const warning = document.createElement('div');
+            warning.className = 'alert alert-danger p-2';
+            warning.setAttribute('role', 'alert');
+            const warning_box = document.querySelectorAll('.col-md-6')[1];
+            warning.textContent = 'This field cannot be left blank';
+            warning_box.appendChild(warning);
+            setTimeout(()=>warning.remove(),2000);
+        }
+    } else {
+        const film = new Film(film_name_input.value, film_director_input.value);
+        const film_element = film.createElement();
+        UI.addFilm(film);
+        Storage.addFilm(film);
+        clearInputs(film_name_input, film_director_input);
+    }
 }
 
 const deleteFilm = (event) => {
