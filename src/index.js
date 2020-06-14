@@ -1,4 +1,5 @@
 import './styles/main.scss';
+import $ from 'jquery';
 import 'bootstrap';
 import { Film } from './js/film';
 import { Storage } from './js/storage';
@@ -40,7 +41,10 @@ const addFilm = (event) => {
             warning_box.appendChild(warning);
             setTimeout(() => warning.remove(), 2000);
         }
-    } else {
+    } else if (filmExists()) {
+        $('#film_exists').modal()
+    }
+    else {
         const film = new Film(film_name_input.value, film_director_input.value);
         const film_element = film.createElement();
         UI.addFilm(film);
@@ -71,6 +75,19 @@ const loadFilms = () => {
 
 const validate = () => {
     film_director_input.value = film_director_input.value.replace(/[^a-zA-Z ]+/, '')
+}
+
+const filmExists = () => {
+/*     let films = Storage.getFilms();
+    let res;
+    for (let i= 0; i < films.length;i++) {
+        if (films[i].name === film_name_input.value) {
+            return res = true;
+        }
+        console.log('HELLO')
+    }
+    return res; */
+    return Storage.getFilms().some(film => film.name === film_name_input.value);
 }
 
 eventListeners();
