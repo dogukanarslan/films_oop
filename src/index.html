@@ -6,75 +6,146 @@
     <title>Films</title>
 </head>
 <body>
-    <div class="container">
-       <form id="form">
-           <div class="row">
-               <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="film_name">Film</label>
-                        <input id="film_name" class="form-control" type="text" placeholder="Film">
-                    </div>
-               </div>
 
-               <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="film_director">Director</label>
-                        <input id="film_director" class="form-control" type="text" placeholder="Director">
-                    </div>
-               </div>
-           </div>
+    <div class="wrapper">
+        <nav id="sidebar">
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Portfolio</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
 
-            <input id="add_film" class="btn btn-primary btn-sm" type="submit" value="Add">
-            <button class="btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#delete_all_modal">Delete All</button>
-        </form>
-    </div>
 
-    <div class="modal fade" id="delete_all_modal" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        Delete all films
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+
+
+        </nav>
+
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+        
+                    <button type="button" id="sidebarCollapse" class="btn btn-sm btn-primary">
+                        <span>Toggle Sidebar</span>
                     </button>
+        
                 </div>
-                <div class="modal-body">
-                    This will delete all your films. Are you sure?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button id="delete_all_button" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
-                </div>
-            </div>
+            </nav>
         </div>
+
+        <div class="container">
+
+            <form id="form">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                             <div class="form-group">
+                                 <label for="film_name">Film</label>
+                                 <input id="film_name" class="form-control" type="text" placeholder="Film">
+                             </div>
+                        </div>
+         
+                        <div class="col-md-12">
+                             <div class="form-group">
+                                 <label for="film_director">Director</label>
+                                 <input id="film_director" class="form-control" type="text" placeholder="Director">
+                             </div>
+                        </div>
+                    </div>
+                                    
+                 <input id="add_film" class="btn btn-primary btn-sm" type="submit" value="Add">
+                 <button class="btn btn-sm btn-primary" type="button" data-toggle="modal" data-target="#delete_all_modal">Delete All</button>
+
+                </div>
+             </form>
+
+             <div class="mt-4">
+                <ul id="films" class="list-group"></ul>
+            </div>
+
+         </div>
+     
+         <div class="modal fade" id="delete_all_modal" data-backdrop="static">
+             <div class="modal-dialog">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h5 class="modal-title">
+                             Delete all films
+                         </h5>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                         </button>
+                     </div>
+                     <div class="modal-body">
+                         This will delete all your films. Are you sure?
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                         <button id="delete_all_button" type="button" class="btn btn-danger" data-dismiss="modal">Delete</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     
+         <div class="modal fade" id="film_exists" data-backdrop="static">
+             <div class="modal-dialog">
+                 <div class="modal-content">
+                     <div class="modal-header">
+                         <h5 class="modal-title">
+                             You already added this film to your list
+                         </h5>
+                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                             <span aria-hidden="true">&times;</span>
+                         </button>
+                     </div>
+                     <div class="modal-body">
+                         Please add another film
+                     </div>
+                     <div class="modal-footer">
+                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     
+
+
     </div>
 
-    <div class="modal fade" id="film_exists" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        You already added this film to your list
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Please add another film
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Okay</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="container mt-4">
-        <ul id="films" class="list-group"></ul>
-    </div>
     
 
 </body>
