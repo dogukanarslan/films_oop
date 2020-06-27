@@ -1,11 +1,12 @@
 const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 
 module.exports = {
     entry: "./src/index.js",
     output: {
-        filename: "main.js",
+        filename: "main.[contentHash].js",
         path: path.resolve(__dirname, "dist")
     },
     mode: 'development',
@@ -14,43 +15,39 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                }
+                use: ["babel-loader"]
             },
             {
                 test: /\.html$/,
-                use: [
-                    {
-                        loader: "html-loader",
-                        options: { minimize: true}
-                    }
-                ]
+                use: ["html-loader"]
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
-                use: [
-                    'file-loader'
-                ]
+                use: {
+                    loader: "file-loader",
+                    options: {
+                        name: "[name].[hash].[ext]",
+                        outputPath: "imgs"
+                    }
+                }
             },
             {
                 test: /\.scss$/,
                 use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader'
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    "sass-loader"
                 ]
             },
         ]
     },
     plugins: [
-        new HtmlWebPackPlugin({
-            template: "./src/index.html",
-            filename: "./index.html"
+        new HtmlWebpackPlugin({
+            template: "./src/template.html"
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].css"
-        })
+            filename: "[name].[contentHash].css"
+        }),
+        new CleanWebpackPlugin()
     ]
 }
