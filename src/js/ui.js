@@ -18,6 +18,7 @@ class UI {
 
     static loadFilms() {
         const allFilms = Storage.getFilms();
+        UI.deleteAllFilms();
         allFilms.forEach(item => {
             let film = new Film(item.name, item.director)
             UI.addFilm(film)
@@ -28,6 +29,40 @@ class UI {
         let allFilms = Storage.getFilms();
         allFilms = allFilms.filter(film => film.name.toLowerCase().indexOf(filter_input.value.toLowerCase()) > -1)
         UI.deleteAllFilms();
+        allFilms.forEach(item => {
+            let film = new Film(item.name, item.director)
+            UI.addFilm(film)
+        })
+    }
+
+    static sortFilmsAsc() {
+        let allFilms = Storage.getFilms();
+        allFilms = allFilms.filter(film => film.name.toLowerCase().indexOf(filter_input.value.toLowerCase()) > -1)
+        UI.deleteAllFilms();
+        allFilms.sort(function(a, b){
+            var x = a.name.toLowerCase();
+            var y = b.name.toLowerCase();
+            if (x < y) {return -1;}
+            if (x > y) {return 1;}
+            return 0;
+          });
+        allFilms.forEach(item => {
+            let film = new Film(item.name, item.director)
+            UI.addFilm(film)
+        })
+    }
+
+    static sortFilmsDesc() {
+        let allFilms = Storage.getFilms();
+        allFilms = allFilms.filter(film => film.name.toLowerCase().indexOf(filter_input.value.toLowerCase()) > -1)
+        UI.deleteAllFilms();
+        allFilms.sort(function(a, b){
+            var x = a.name.toLowerCase();
+            var y = b.name.toLowerCase();
+            if (x > y) {return -1;}
+            if (x < y) {return 1;}
+            return 0;
+          });
         allFilms.forEach(item => {
             let film = new Film(item.name, item.director)
             UI.addFilm(film)

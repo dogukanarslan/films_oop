@@ -12,15 +12,21 @@ const film_director_input = document.querySelector('#film_director');
 const delete_all_button = document.querySelector('#delete_all_button');
 const sidebar_collapse = document.querySelector('#sidebarCollapse')
 const filter_input = document.querySelector('#filter_input');
+const asc_sort_button = document.querySelector('#asc_sort')
+const desc_sort_button = document.querySelector('#desc_sort')
+const reset_sort_button = document.querySelector('#reset_sort');
 
 const eventListeners = () => {
     form.addEventListener('submit', addFilm);
     films.addEventListener('click', deleteFilm);
     delete_all_button.addEventListener('click', deleteAllFilms);
     film_director_input.addEventListener('keyup', validate);
-    sidebar_collapse.addEventListener('click', toggleSidebar)
+    sidebar_collapse.addEventListener('click', toggleSidebar);
     document.addEventListener('DOMContentLoaded', loadFilms);
-    filter_input.addEventListener('input', UI.filterFilms)
+    filter_input.addEventListener('input', UI.filterFilms);
+    asc_sort_button.addEventListener('click', UI.sortFilmsAsc);
+    desc_sort_button.addEventListener('click', UI.sortFilmsDesc);
+    reset_sort_button.addEventListener('click', UI.loadFilms);
 }
 
 const addFilm = (event) => {
