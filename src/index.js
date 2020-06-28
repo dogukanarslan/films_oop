@@ -11,6 +11,7 @@ const film_name_input = document.querySelector('#film_name');
 const film_director_input = document.querySelector('#film_director');
 const delete_all_button = document.querySelector('#delete_all_button');
 const sidebar_collapse = document.querySelector('#sidebarCollapse')
+const filter_input = document.querySelector('#filter_input');
 
 const eventListeners = () => {
     form.addEventListener('submit', addFilm);
@@ -19,6 +20,7 @@ const eventListeners = () => {
     film_director_input.addEventListener('keyup', validate);
     sidebar_collapse.addEventListener('click', toggleSidebar)
     document.addEventListener('DOMContentLoaded', loadFilms);
+    filter_input.addEventListener('input', UI.filterFilms)
 }
 
 const addFilm = (event) => {
@@ -86,7 +88,6 @@ const filmExists = () => {
         if (films[i].name === film_name_input.value) {
             return res = true;
         }
-        console.log('HELLO')
     }
     return res; */
     return Storage.getFilms().some(film => film.name === film_name_input.value);

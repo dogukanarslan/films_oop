@@ -23,6 +23,16 @@ class UI {
             UI.addFilm(film)
         })
     }
+
+    static filterFilms() {
+        let allFilms = Storage.getFilms();
+        allFilms = allFilms.filter(film => film.name.indexOf(filter_input.value) > -1)
+        UI.deleteAllFilms();
+        allFilms.forEach(item => {
+            let film = new Film(item.name, item.director)
+            UI.addFilm(film)
+        })
+    }
 }
 
 export {UI}
