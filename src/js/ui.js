@@ -26,7 +26,7 @@ class UI {
 
     static filterFilms() {
         let allFilms = Storage.getFilms();
-        allFilms = allFilms.filter(film => film.name.indexOf(filter_input.value) > -1)
+        allFilms = allFilms.filter(film => film.name.toLowerCase().indexOf(filter_input.value.toLowerCase()) > -1)
         UI.deleteAllFilms();
         allFilms.forEach(item => {
             let film = new Film(item.name, item.director)
