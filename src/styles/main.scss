@@ -10,7 +10,7 @@
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
-    background: #333;
+    background: $dark;
     color: #fff;
     transition: all 0.3s;
     &.active {

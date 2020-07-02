@@ -5,15 +5,17 @@ import { Film } from './js/film';
 import { Storage } from './js/storage';
 import { UI } from './js/ui';
 
+let ui = new UI;
+
 const form = document.querySelector('#form');
-const films = document.querySelector('#films')
+const films = document.querySelector('#films');
 const film_name_input = document.querySelector('#film_name');
 const film_director_input = document.querySelector('#film_director');
 const delete_all_button = document.querySelector('#delete_all_button');
 const sidebar_collapse = document.querySelector('#sidebarCollapse')
 const filter_input = document.querySelector('#filter_input');
-const asc_sort_button = document.querySelector('#asc_sort')
-const desc_sort_button = document.querySelector('#desc_sort')
+const asc_sort_button = document.querySelector('#asc_sort');
+const desc_sort_button = document.querySelector('#desc_sort');
 const reset_sort_button = document.querySelector('#reset_sort');
 
 const eventListeners = () => {
@@ -23,10 +25,10 @@ const eventListeners = () => {
     film_director_input.addEventListener('keyup', validate);
     sidebar_collapse.addEventListener('click', toggleSidebar);
     document.addEventListener('DOMContentLoaded', loadFilms);
-    filter_input.addEventListener('input', UI.filterFilms);
-    asc_sort_button.addEventListener('click', UI.sortFilmsAsc);
-    desc_sort_button.addEventListener('click', UI.sortFilmsDesc);
-    reset_sort_button.addEventListener('click', UI.loadFilms);
+    filter_input.addEventListener('input', filterFilms);
+    asc_sort_button.addEventListener('click', () => sortFilms('asc'));
+    desc_sort_button.addEventListener('click', () => sortFilms('desc'));
+    reset_sort_button.addEventListener('click', loadFilms);
 }
 
 const addFilm = (event) => {
@@ -57,7 +59,7 @@ const addFilm = (event) => {
     else {
         const film = new Film(film_name_input.value, film_director_input.value);
         const film_element = film.createElement();
-        UI.addFilm(film);
+        ui.addFilm(film);
         Storage.addFilm(film);
         clearInputs(film_name_input, film_director_input);
     }
@@ -65,7 +67,7 @@ const addFilm = (event) => {
 
 const deleteFilm = (event) => {
     if (event.target.id === 'delete_film_button') {
-        UI.deleteFilm(event.target);
+        ui.deleteFilm(event.target);
         Storage.deleteFilm(event.target);
     }
 }
@@ -75,12 +77,12 @@ const clearInputs = (...element) => {
 }
 
 const deleteAllFilms = () => {
-    UI.deleteAllFilms();
+    ui.deleteAllFilms();
     Storage.deleteAllFilms();
 }
 
 const loadFilms = () => {
-    UI.loadFilms();
+    ui.loadFilms();
 }
 
 const validate = () => {
@@ -100,6 +102,10 @@ const filmExists = () => {
 }
 
 const toggleSidebar = () => document.querySelector('#sidebar').classList.toggle('active');
+
+const filterFilms = () => ui.filterFilms();
+
+const sortFilms = (type) => ui.sortFilms(type);
 
 eventListeners();
 
