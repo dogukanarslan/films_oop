@@ -1,4 +1,3 @@
-import {Storage} from './storage';
 import {Film} from './film'
 
 class UI {
