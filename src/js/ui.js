@@ -13,6 +13,11 @@ class UI {
     
     deleteFilm(element) {
         element.parentElement.remove();
+        for (let i = 0; i < this.films.length; i++) {
+            if (this.films[i].name === element.parentElement.firstElementChild.textContent) {
+                this.films = this.films.splice(i,1);
+            }
+        }
     }
 
     deleteAllFilms() {
@@ -23,14 +28,13 @@ class UI {
 
     loadFilms() {
         this.deleteAllFilms();
-        Storage.getFilms().forEach(item => {
+        this.films.forEach(item => {
             let film = new Film(item.name, item.director)
-            this.addFilm(film)
+            films.innerHTML += film.createElement(film.name, film.director);
         })
     }
 
     filterFilms() {
-        // Not quite my tempo...
         this.deleteAllFilms();
         let allFilms = this.films.filter(film => film.name.toLowerCase().indexOf(filter_input.value.toLowerCase()) > -1)
         allFilms.forEach(item => {
@@ -38,11 +42,11 @@ class UI {
             films.innerHTML += film.createElement(film.name, film.director);
         })
     }
+    
     sortFilms(type) {
-        let allFilms = Storage.getFilms();
-        allFilms = allFilms.filter(film => film.name.toLowerCase().indexOf(filter_input.value.toLowerCase()) > -1)
         this.deleteAllFilms();
-        console.log(allFilms);
+        let allFilms = this.films;
+        allFilms = allFilms.filter(film => film.name.toLowerCase().indexOf(filter_input.value.toLowerCase()) > -1)
         switch(type) {
             case 'asc':
                 allFilms = allFilms.sort(function(a, b){
@@ -52,7 +56,6 @@ class UI {
                     if (x > y) {return 1;}
                     return 0;
                 });
-                console.log(allFilms);
                 break;
             case 'desc':
                 allFilms = allFilms.sort(function(a, b){
@@ -68,7 +71,7 @@ class UI {
         }
         allFilms.forEach(item => {
             let film = new Film(item.name, item.director)
-            this.addFilm(film)
+            films.innerHTML += film.createElement(film.name, film.director);
         })
     }
 }

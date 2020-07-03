@@ -38,7 +38,7 @@ const addFilm = (event) => {
             const warning = document.createElement('div');
             warning.className = 'alert alert-danger p-2';
             warning.setAttribute('role', 'alert');
-            const warning_box = document.querySelectorAll('.col-md-6')[0]
+            const warning_box = document.querySelectorAll('.col-md-12')[0]
             warning.textContent = 'This field cannot be left blank';
             warning_box.appendChild(warning);
             setTimeout(() => warning.remove(), 2000);
@@ -48,7 +48,7 @@ const addFilm = (event) => {
             const warning = document.createElement('div');
             warning.className = 'alert alert-danger p-2';
             warning.setAttribute('role', 'alert');
-            const warning_box = document.querySelectorAll('.col-md-6')[1];
+            const warning_box = document.querySelectorAll('.col-md-12')[1];
             warning.textContent = 'This field cannot be left blank';
             warning_box.appendChild(warning);
             setTimeout(() => warning.remove(), 2000);
@@ -79,9 +79,12 @@ const clearInputs = (...element) => {
 const deleteAllFilms = () => {
     ui.deleteAllFilms();
     Storage.deleteAllFilms();
+    ui.films = [];
 }
 
 const loadFilms = () => {
+    let films = Storage.getFilms();
+    ui.films = films;
     ui.loadFilms();
 }
 
