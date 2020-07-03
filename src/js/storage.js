@@ -18,12 +18,13 @@ class Storage {
     static deleteFilm(film_element) {
         let film_name = film_element.parentElement.firstElementChild.textContent;
         let films = this.getFilms();
-        films.forEach((item, index) => {
-            if (item.name === film_name) {
-                films.splice(index, 1);
+        for (let i = 0; i < films.length; i++) {
+            if (films[i].name === film_name) {
+                films.splice(i, 1);
+                localStorage.setItem('films', JSON.stringify(films))
+                return;
             }
-        })
-        localStorage.setItem('films', JSON.stringify(films))
+        }
     }
 
     static deleteAllFilms() {
