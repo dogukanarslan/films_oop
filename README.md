@@ -1,4 +1,4 @@
-# Film OOP
+# Films OOP
 
 Pure JavaScript and Object Oriented Film Application
 
