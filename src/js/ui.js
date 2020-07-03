@@ -15,7 +15,7 @@ class UI {
         element.parentElement.remove();
         for (let i = 0; i < this.films.length; i++) {
             if (this.films[i].name === element.parentElement.firstElementChild.textContent) {
-                this.films = this.films.splice(i,1);
+                return this.films = this.films.splice(i,1);
             }
         }
     }
