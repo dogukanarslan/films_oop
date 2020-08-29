@@ -43,7 +43,12 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
+            filename: "template.html",
             template: "./src/template.html"
+        }),
+        new HtmlWebpackPlugin({
+            filename: "netflix.html",
+            template: "./src/netflix.html"
         }),
         new MiniCssExtractPlugin({
             filename: "[name].[contentHash].css"

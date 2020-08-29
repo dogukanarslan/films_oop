@@ -4,8 +4,11 @@ import 'bootstrap';
 import { Film } from './js/film';
 import { Storage } from './js/storage';
 import { UI } from './js/ui';
+import {Netflix} from './js/netflix';
 
 let ui = new UI;
+
+Netflix.getFilms();
 
 const form = document.querySelector('#form');
 const films = document.querySelector('#films');
