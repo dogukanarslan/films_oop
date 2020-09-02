@@ -1,4 +1,4 @@
-import {Film} from './film'
+import { Film } from './film'
 
 class UI {
     constructor() {
@@ -9,18 +9,18 @@ class UI {
         films.innerHTML += film.createElement(film.name, film.director);
         this.films.push(film);
     }
-    
+
     deleteFilm(element) {
         element.parentElement.remove();
         for (let i = 0; i < this.films.length; i++) {
             if (this.films[i].name === element.parentElement.firstElementChild.textContent) {
-                return this.films = this.films.splice(i,1);
+                return this.films = this.films.splice(i, 1);
             }
         }
     }
 
     deleteAllFilms() {
-        while(films.firstElementChild) {
+        while (films.firstElementChild) {
             films.firstElementChild.remove();
         }
     }
@@ -41,27 +41,27 @@ class UI {
             films.innerHTML += film.createElement(film.name, film.director);
         })
     }
-    
+
     sortFilms(type) {
         this.deleteAllFilms();
         let allFilms = this.films;
         allFilms = allFilms.filter(film => film.name.toLowerCase().indexOf(filter_input.value.toLowerCase()) > -1)
-        switch(type) {
+        switch (type) {
             case 'asc':
-                allFilms = allFilms.sort(function(a, b){
+                allFilms = allFilms.sort(function (a, b) {
                     var x = a.name.toLowerCase();
                     var y = b.name.toLowerCase();
-                    if (x < y) {return -1;}
-                    if (x > y) {return 1;}
+                    if (x < y) { return -1; }
+                    if (x > y) { return 1; }
                     return 0;
                 });
                 break;
             case 'desc':
-                allFilms = allFilms.sort(function(a, b){
+                allFilms = allFilms.sort(function (a, b) {
                     var x = a.name.toLowerCase();
                     var y = b.name.toLowerCase();
-                    if (x > y) {return -1;}
-                    if (x < y) {return 1;}
+                    if (x > y) { return -1; }
+                    if (x < y) { return 1; }
                     return 0;
                 });
                 break;
@@ -75,4 +75,4 @@ class UI {
     }
 }
 
-export {UI}
+export { UI }

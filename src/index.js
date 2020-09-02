@@ -4,33 +4,30 @@ import 'bootstrap';
 import { Film } from './js/film';
 import { Storage } from './js/storage';
 import { UI } from './js/ui';
-import {Netflix} from './js/netflix';
+import { Netflix } from './js/netflix';
 
 let ui = new UI;
 
-Netflix.getFilms();
-
-const form = document.querySelector('#form');
+const asc_sort_button = document.querySelector('#asc_sort');
+const delete_all_button = document.querySelector('#delete_all_button');
+const desc_sort_button = document.querySelector('#desc_sort');
 const films = document.querySelector('#films');
 const film_name_input = document.querySelector('#film_name');
 const film_director_input = document.querySelector('#film_director');
-const delete_all_button = document.querySelector('#delete_all_button');
-const sidebar_collapse = document.querySelector('#sidebarCollapse')
 const filter_input = document.querySelector('#filter_input');
-const asc_sort_button = document.querySelector('#asc_sort');
-const desc_sort_button = document.querySelector('#desc_sort');
+const form = document.querySelector('#form');
 const reset_sort_button = document.querySelector('#reset_sort');
+const sidebar_collapse = document.querySelector('#sidebarCollapse')
 
 const eventListeners = () => {
-    form.addEventListener('submit', addFilm);
-    films.addEventListener('click', deleteFilm);
-    delete_all_button.addEventListener('click', deleteAllFilms);
-    film_director_input.addEventListener('keyup', validate);
-    sidebar_collapse.addEventListener('click', toggleSidebar);
-    document.addEventListener('DOMContentLoaded', loadFilms);
-    filter_input.addEventListener('input', filterFilms);
     asc_sort_button.addEventListener('click', () => sortFilms('asc'));
+    delete_all_button.addEventListener('click', deleteAllFilms);
     desc_sort_button.addEventListener('click', () => sortFilms('desc'));
+    document.addEventListener('DOMContentLoaded', loadFilms);
+    films.addEventListener('click', deleteFilm);
+    film_director_input.addEventListener('keyup', validate);
+    filter_input.addEventListener('input', filterFilms);
+    form.addEventListener('submit', addFilm);
     reset_sort_button.addEventListener('click', loadFilms);
 }
 
@@ -96,14 +93,14 @@ const validate = () => {
 }
 
 const filmExists = () => {
-/*     let films = Storage.getFilms();
-    let res;
-    for (let i= 0; i < films.length;i++) {
-        if (films[i].name === film_name_input.value) {
-            return res = true;
+    /*     let films = Storage.getFilms();
+        let res;
+        for (let i= 0; i < films.length;i++) {
+            if (films[i].name === film_name_input.value) {
+                return res = true;
+            }
         }
-    }
-    return res; */
+        return res; */
     return Storage.getFilms().some(film => film.name === film_name_input.value);
 }
 
