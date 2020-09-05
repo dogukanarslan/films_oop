@@ -19,4 +19,4 @@ These instructions will get you a copy of the project up and running on your loc
 
 3. Run `npm start`command for development environment
 
-4. Run `npm run build` to extract project to dist folder
+4. Run `npm run build-prod` to minify and extract project to dist folder
