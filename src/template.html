@@ -27,23 +27,21 @@
         <form id="form">
             <!-- FILMS -->
             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
+                <div class="col-md-5">
+                    <div class="form-group mt-auto">
                         <label for="film_name">Film</label>
                         <input id="film_name" class="form-control" type="text" placeholder="Film">
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="film_director">Director</label>
                         <input id="film_director" class="form-control" type="text" placeholder="Director">
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2 d-flex align-items-end">
                     <div class="form-group">
                         <input id="add_film" class="btn btn-outline-primary" type="submit" value="Add">
                         <button class="btn btn-outline-danger" type="button" data-toggle="modal"
@@ -54,16 +52,13 @@
 
             <!-- FILTERS -->
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-8">
                     <div class="form-group">
                         <label for="filter_input">Filter</label>
                         <input id="filter_input" class="form-control" type="text" placeholder="Search film">
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-4 d-flex justify-content-end align-items-end">
                     <div class="form-group">
                         <div class="btn-group">
                             <button id="asc_sort" type="button" class="btn btn-outline-primary">Ascending</button>
