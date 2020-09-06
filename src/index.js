@@ -24,6 +24,7 @@ const eventListeners = () => {
     delete_all_button.addEventListener('click', deleteAllFilms);
     desc_sort_button.addEventListener('click', () => sortFilms('desc'));
     document.addEventListener('DOMContentLoaded', loadFilms);
+    films.addEventListener('click', addFavorite);
     films.addEventListener('click', deleteFilm);
     film_director_input.addEventListener('keyup', validate);
     filter_input.addEventListener('input', filterFilms);
@@ -55,13 +56,18 @@ const addFilm = (event) => {
         }
     } else if (filmExists()) {
         $('#film_exists').modal()
-    }
-    else {
+    } else {
         const film = new Film(film_name_input.value, film_director_input.value);
         const film_element = film.createElement();
         ui.addFilm(film);
         Storage.addFilm(film);
         clearInputs(film_name_input, film_director_input);
+    }
+}
+
+const addFavorite = event => {
+    if (event.target.id === 'add_favorite_button') {
+        ui.addFavorite(event.target);
     }
 }
 

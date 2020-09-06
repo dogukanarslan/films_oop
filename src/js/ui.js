@@ -10,6 +10,15 @@ class UI {
         this.films.push(film);
     }
 
+    addFavorite(film) {
+        this.films.map(item => {
+            if (item.name === film.parentElement.firstElementChild.textContent) {
+                item.is_favorite = !item.is_favorite;
+            }
+        })
+        this.loadFilms();
+    }
+
     deleteFilm(element) {
         element.parentElement.remove();
         for (let i = 0; i < this.films.length; i++) {
@@ -28,8 +37,8 @@ class UI {
     loadFilms() {
         this.deleteAllFilms();
         this.films.forEach(item => {
-            let film = new Film(item.name, item.director)
-            films.innerHTML += film.createElement(film.name, film.director);
+            let film = new Film(item.name, item.director, item.is_favorite)
+            films.innerHTML += film.createElement();
         })
     }
 
