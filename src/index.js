@@ -1,10 +1,9 @@
 import './styles/main.scss';
 import $ from 'jquery';
 import 'bootstrap';
-import { Film } from './js/film';
-import { Storage } from './js/storage';
-import { UI } from './js/ui';
-import { Netflix } from './js/netflix';
+import {Film} from './js/film';
+import {Storage} from './js/storage';
+import {UI} from './js/ui';
 
 let ui = new UI;
 
@@ -17,7 +16,6 @@ const film_director_input = document.querySelector('#film_director');
 const filter_input = document.querySelector('#filter_input');
 const form = document.querySelector('#form');
 const reset_sort_button = document.querySelector('#reset_sort');
-const sidebar_collapse = document.querySelector('#sidebarCollapse')
 
 const eventListeners = () => {
     asc_sort_button.addEventListener('click', () => sortFilms('asc'));
@@ -58,7 +56,6 @@ const addFilm = (event) => {
         $('#film_exists').modal()
     } else {
         const film = new Film(film_name_input.value, film_director_input.value);
-        const film_element = film.createElement();
         ui.addFilm(film);
         Storage.addFilm(film);
         clearInputs(film_name_input, film_director_input);
@@ -89,8 +86,7 @@ const deleteAllFilms = () => {
 }
 
 const loadFilms = () => {
-    let films = Storage.getFilms();
-    ui.films = films;
+    ui.films = Storage.getFilms();
     ui.loadFilms();
 }
 
@@ -109,8 +105,6 @@ const filmExists = () => {
         return res; */
     return Storage.getFilms().some(film => film.name === film_name_input.value);
 }
-
-const toggleSidebar = () => document.querySelector('#sidebar').classList.toggle('active');
 
 const filterFilms = () => ui.filterFilms();
 
