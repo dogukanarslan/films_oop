@@ -43,10 +43,6 @@ module.exports = {
             filename: "index.html",
             template: "./src/template.html",
         }),
-        new HtmlWebpackPlugin({
-            filename: "netflix.html",
-            template: "./src/netflix.html",
-        }),
         new MiniCssExtractPlugin({
             filename: "[name].[contentHash].css",
         }),
