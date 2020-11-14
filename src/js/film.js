@@ -12,7 +12,7 @@ class Film {
             <p>${this.director} </p>
             <button id="delete_film_button" class="btn btn-sm btn-danger">Delete</button>
             <button id="add_favorite_button" class="btn btn-sm btn-warning">Add Favorite</button>
-            </li>`
+            </li>`;
             return film_element;
         } else {
             let film_element = `<li class="list-group-item">
@@ -20,10 +20,10 @@ class Film {
             <p>${this.director}</p>
             <button id="delete_film_button" class="btn btn-sm btn-danger">Delete</button>
             <button id="add_favorite_button" class="btn btn-sm btn-warning">Add Favorite</button>
-            </li>`
+            </li>`;
             return film_element;
         }
     }
 }
 
-export { Film }
+export { Film };

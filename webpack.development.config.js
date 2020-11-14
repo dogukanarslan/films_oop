@@ -9,18 +9,18 @@ module.exports = {
     devtool: "inline-source-map",
     output: {
         filename: "main.[contentHash].js",
-        path: path.resolve(__dirname, "dist")
+        path: path.resolve(__dirname, "dist"),
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: ["babel-loader"]
+                use: ["babel-loader"],
             },
             {
                 test: /\.html$/,
-                use: ["html-loader"]
+                use: ["html-loader"],
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
@@ -28,32 +28,28 @@ module.exports = {
                     loader: "file-loader",
                     options: {
                         name: "[name].[hash].[ext]",
-                        outputPath: "imgs"
-                    }
-                }
+                        outputPath: "imgs",
+                    },
+                },
             },
             {
                 test: /\.scss$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader"
-                ]
+                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
             },
-        ]
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
             filename: "index.html",
-            template: "./src/template.html"
+            template: "./src/template.html",
         }),
         new HtmlWebpackPlugin({
             filename: "netflix.html",
-            template: "./src/netflix.html"
+            template: "./src/netflix.html",
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].[contentHash].css"
+            filename: "[name].[contentHash].css",
         }),
-        new CleanWebpackPlugin()
-    ]
-}
+        new CleanWebpackPlugin(),
+    ],
+};

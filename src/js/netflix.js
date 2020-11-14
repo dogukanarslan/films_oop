@@ -1,7 +1,7 @@
 class Netflix {
     static getFilms() {
-        console.log('Movies');
-    };
+        console.log("Movies");
+    }
 }
 
-export {Netflix}
+export { Netflix };
