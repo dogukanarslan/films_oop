@@ -5,12 +5,12 @@ class UI {
         this.films = [];
     }
 
-    addFilm(film) {
+    static addFilm(film) {
         films.innerHTML += film.createElement(film.name, film.director);
         this.films.push(film);
     }
 
-    addFavorite(film) {
+    static addFavorite(film) {
         this.films.map((item) => {
             if (
                 item.name === film.parentElement.firstElementChild.textContent
@@ -21,7 +21,7 @@ class UI {
         this.loadFilms();
     }
 
-    deleteFilm(element) {
+    static deleteFilm(element) {
         element.parentElement.remove();
         for (let i = 0; i < this.films.length; i++) {
             if (
@@ -33,13 +33,13 @@ class UI {
         }
     }
 
-    deleteAllFilms() {
+    static deleteAllFilms() {
         while (films.firstElementChild) {
             films.firstElementChild.remove();
         }
     }
 
-    loadFilms() {
+    static loadFilms() {
         this.deleteAllFilms();
         this.films.forEach((item) => {
             let film = new Film(item.name, item.director, item.is_favorite);
@@ -47,7 +47,7 @@ class UI {
         });
     }
 
-    filterFilms() {
+    static filterFilms() {
         this.deleteAllFilms();
         let allFilms = this.films.filter(
             (film) =>
@@ -61,7 +61,7 @@ class UI {
         });
     }
 
-    sortFilms(type) {
+    static sortFilms(type) {
         this.deleteAllFilms();
         let allFilms = this.films;
         allFilms = allFilms.filter(
