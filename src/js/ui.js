@@ -1,80 +1,82 @@
 import { Film } from "./film";
 
+let _films = [];
+
 class UI {
-    constructor() {
-        this.films = [];
+    static getFilms() {
+        return _films;
     }
 
-    static addFilm(film) {
-        films.innerHTML += film.createElement(film.name, film.director);
-        this.films.push(film);
+    static setFilms(val) {
+        _films = val;
     }
 
-    static addFavorite(film) {
-        this.films.map((item) => {
-            if (
-                item.name === film.parentElement.firstElementChild.textContent
-            ) {
-                item.is_favorite = !item.is_favorite;
+    static addFilm(film, el) {
+        el.innerHTML += film.createElement(film.name, film.director);
+        const films = UI.getFilms();
+        UI.setFilms([...films, film]);
+    }
+
+    static addFavorite(el) {
+        el.parentElement.classList.toggle("border-warning");
+        const films = UI.getFilms().map((film) => {
+            if (film.name === el.parentElement.firstElementChild.textContent) {
+                return { ...film, is_favorite: !film.is_favorite };
             }
+
+            return film;
         });
-        this.loadFilms();
+
+        UI.setFilms(films);
     }
 
-    static deleteFilm(element) {
-        element.parentElement.remove();
-        for (let i = 0; i < this.films.length; i++) {
-            if (
-                this.films[i].name ===
-                element.parentElement.firstElementChild.textContent
-            ) {
-                return (this.films = this.films.splice(i, 1));
-            }
+    static deleteFilm(el) {
+        el.parentElement.remove();
+        const films = UI.getFilms().filter((film) => {
+            return film.name !== el.parentElement.firstElementChild.textContent;
+        });
+
+        UI.setFilms(films);
+    }
+
+    static deleteAllFilms(el, isSoftDelete = false) {
+        while (el.firstElementChild) {
+            el.firstElementChild.remove();
+        }
+
+        if (!isSoftDelete) {
+            UI.setFilms([]);
         }
     }
 
-    static deleteAllFilms() {
-        while (films.firstElementChild) {
-            films.firstElementChild.remove();
-        }
-    }
-
-    static loadFilms() {
-        this.deleteAllFilms();
-        this.films.forEach((item) => {
+    static loadFilms(el, films = UI.getFilms()) {
+        films.forEach((item) => {
             let film = new Film(item.name, item.director, item.is_favorite);
-            films.innerHTML += film.createElement();
+            el.innerHTML += film.createElement();
         });
     }
 
-    static filterFilms() {
-        this.deleteAllFilms();
-        let allFilms = this.films.filter(
-            (film) =>
-                film.name
-                    .toLowerCase()
-                    .indexOf(filter_input.value.toLowerCase()) > -1
-        );
-        allFilms.forEach((item) => {
-            let film = new Film(item.name, item.director);
-            films.innerHTML += film.createElement(film.name, film.director);
+    static filterFilms(name, el) {
+        const currentFilms = UI.getFilms();
+
+        const filteredFilms = [];
+        currentFilms.forEach((film) => {
+            if (film.name.toLowerCase().indexOf(name.toLowerCase()) > -1) {
+                filteredFilms.push(film);
+            }
         });
+
+        UI.deleteAllFilms(el, true);
+        UI.loadFilms(el, filteredFilms);
     }
 
-    static sortFilms(type) {
-        this.deleteAllFilms();
-        let allFilms = this.films;
-        allFilms = allFilms.filter(
-            (film) =>
-                film.name
-                    .toLowerCase()
-                    .indexOf(filter_input.value.toLowerCase()) > -1
-        );
+    static sortFilms(name, type, el) {
+        let currentFilms = UI.getFilms();
         switch (type) {
             case "asc":
-                allFilms = allFilms.sort(function (a, b) {
-                    var x = a.name.toLowerCase();
-                    var y = b.name.toLowerCase();
+                currentFilms = currentFilms.sort(function (a, b) {
+                    const x = a.name.toLowerCase();
+                    const y = b.name.toLowerCase();
                     if (x < y) {
                         return -1;
                     }
@@ -85,9 +87,9 @@ class UI {
                 });
                 break;
             case "desc":
-                allFilms = allFilms.sort(function (a, b) {
-                    var x = a.name.toLowerCase();
-                    var y = b.name.toLowerCase();
+                currentFilms = currentFilms.sort(function (a, b) {
+                    const x = a.name.toLowerCase();
+                    const y = b.name.toLowerCase();
                     if (x > y) {
                         return -1;
                     }
@@ -100,10 +102,9 @@ class UI {
             default:
                 break;
         }
-        allFilms.forEach((item) => {
-            let film = new Film(item.name, item.director);
-            films.innerHTML += film.createElement(film.name, film.director);
-        });
+
+        UI.deleteAllFilms(el, true);
+        UI.loadFilms(el, currentFilms);
     }
 }
 

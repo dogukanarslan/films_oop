@@ -6,23 +6,14 @@ class Film {
     }
 
     createElement() {
-        if (this.is_favorite) {
-            let film_element = `<li class="list-group-item border border-warning">
+        return (
+            `<li class="list-group-item border${this.is_favorite && " border-warning"}">
             <h4>${this.name}</h4>
             <p>${this.director} </p>
             <button id="delete_film_button" class="btn btn-sm btn-danger">Delete</button>
             <button id="add_favorite_button" class="btn btn-sm btn-warning">Add Favorite</button>
-            </li>`;
-            return film_element;
-        } else {
-            let film_element = `<li class="list-group-item">
-            <h4>${this.name}</h4>
-            <p>${this.director}</p>
-            <button id="delete_film_button" class="btn btn-sm btn-danger">Delete</button>
-            <button id="add_favorite_button" class="btn btn-sm btn-warning">Add Favorite</button>
-            </li>`;
-            return film_element;
-        }
+            </li>`
+        )
     }
 }
 

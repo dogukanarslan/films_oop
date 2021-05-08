@@ -41,7 +41,7 @@ const addFilm = (event) => {
         $("#film_exists").modal();
     } else {
         const film = new Film(film_name_input.value, film_director_input.value);
-        UI.addFilm(film);
+        UI.addFilm(film, films);
         Storage.addFilm(film);
         clearInputs(film_name_input, film_director_input);
     }
@@ -50,6 +50,7 @@ const addFilm = (event) => {
 const addFavorite = (event) => {
     if (event.target.id === "add_favorite_button") {
         UI.addFavorite(event.target);
+        Storage.addFavorite(event.target);
     }
 };
 
@@ -65,14 +66,14 @@ const clearInputs = (...element) => {
 };
 
 const deleteAllFilms = () => {
-    UI.deleteAllFilms();
+    UI.deleteAllFilms(films);
     Storage.deleteAllFilms();
-    UI.films = [];
 };
 
 const loadFilms = () => {
-    UI.films = Storage.getFilms();
-    UI.loadFilms();
+    const storedFilms = Storage.getFilms();
+    UI.setFilms(storedFilms);
+    UI.loadFilms(films);
 };
 
 const validate = () => {
@@ -88,9 +89,9 @@ const filmExists = () => {
     );
 };
 
-const filterFilms = () => UI.filterFilms();
+const filterFilms = () => UI.filterFilms(filter_input.value, films);
 
-const sortFilms = (type) => UI.sortFilms(type);
+const sortFilms = (type) => UI.sortFilms(filter_input.value, type, films);
 
 (() => {
     films.addEventListener("click", addFavorite);
