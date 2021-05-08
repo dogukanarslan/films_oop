@@ -12,7 +12,7 @@ class UI {
     }
 
     static addFilm(film, el) {
-        el.innerHTML += film.createElement(film.name, film.director);
+        el.appendChild(film.createElement());
         const films = UI.getFilms();
         UI.setFilms([...films, film]);
     }
@@ -52,7 +52,7 @@ class UI {
     static loadFilms(el, films = UI.getFilms()) {
         films.forEach((item) => {
             let film = new Film(item.name, item.director, item.is_favorite);
-            el.innerHTML += film.createElement();
+            el.appendChild(film.createElement());
         });
     }
 
