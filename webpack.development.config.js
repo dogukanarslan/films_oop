@@ -11,12 +11,15 @@ module.exports = {
         filename: "main.[contentHash].js",
         path: path.resolve(__dirname, "dist"),
     },
+    resolve: {
+        extensions: [".ts", ".js"],
+    },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|ts)$/,
                 exclude: /node_modules/,
-                use: ["babel-loader"],
+                use: ["ts-loader"],
             },
             {
                 test: /\.html$/,
