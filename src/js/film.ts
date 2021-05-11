@@ -1,5 +1,9 @@
 class Film {
-    constructor(name, director, is_favorite = false) {
+    public name;
+    public director;
+    public is_favorite;
+
+    constructor(name: string, director: string, is_favorite: boolean = false) {
         this.name = name;
         this.director = director;
         this.is_favorite = is_favorite;
