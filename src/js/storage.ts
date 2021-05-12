@@ -1,24 +1,29 @@
+import { IFilm } from "../interfaces/models";
+
 class Storage {
     static getFilms() {
-        let films;
+        let films: Array<IFilm>;
         if (!localStorage.getItem("films")) {
             films = [];
         } else {
-            films = JSON.parse(localStorage.getItem("films"));
+            films = JSON.parse(localStorage.getItem("films") || "[]");
         }
         return films;
     }
 
-    static addFilm(film) {
+    static addFilm(film: IFilm) {
         let films = Storage.getFilms();
         films.push(film);
         localStorage.setItem("films", JSON.stringify(films));
     }
 
-    static addFavorite(el) {
+    static addFavorite(el: HTMLButtonElement) {
+        const $liElement = el.parentElement as HTMLLIElement;
+        const $headerElement = $liElement.firstElementChild as HTMLHeadingElement;
+
         let films = Storage.getFilms();
-        films = films.map((film) => {
-            if (film.name === el.parentElement.firstElementChild.textContent) {
+        films = films.map((film: IFilm) => {
+            if (film.name === $headerElement.textContent) {
                 return { ...film, is_favorite: !film.is_favorite };
             }
 
@@ -28,9 +33,11 @@ class Storage {
         localStorage.setItem("films", JSON.stringify(films));
     }
 
-    static deleteFilm(film_element) {
-        let film_name =
-            film_element.parentElement.firstElementChild.textContent;
+    static deleteFilm(el: HTMLButtonElement) {
+        const $liElement = el.parentElement as HTMLLIElement;
+        const $headerElement = $liElement.firstElementChild as HTMLHeadingElement;
+
+        let film_name = $headerElement.textContent;
         let films = Storage.getFilms();
         for (let i = 0; i < films.length; i++) {
             if (films[i].name === film_name) {
