@@ -19,11 +19,11 @@ class Storage {
 
     static addFavorite(el: HTMLButtonElement) {
         const $liElement = el.parentElement as HTMLLIElement;
-        const $headerElement = $liElement.firstElementChild as HTMLHeadingElement;
+        const $headingElement = $liElement.firstElementChild as HTMLHeadingElement;
 
         let films = Storage.getFilms();
         films = films.map((film: IFilm) => {
-            if (film.name === $headerElement.textContent) {
+            if (film.name === $headingElement.textContent) {
                 return { ...film, is_favorite: !film.is_favorite };
             }
 
@@ -35,9 +35,9 @@ class Storage {
 
     static deleteFilm(el: HTMLButtonElement) {
         const $liElement = el.parentElement as HTMLLIElement;
-        const $headerElement = $liElement.firstElementChild as HTMLHeadingElement;
+        const $headingElement = $liElement.firstElementChild as HTMLHeadingElement;
 
-        let film_name = $headerElement.textContent;
+        let film_name = $headingElement.textContent;
         let films = Storage.getFilms();
         for (let i = 0; i < films.length; i++) {
             if (films[i].name === film_name) {
