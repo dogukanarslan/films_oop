@@ -5,17 +5,31 @@ import { Film } from "./js/film";
 import { Storage } from "./js/storage";
 import { UI } from "./js/ui";
 
-const asc_sort_button = document.querySelector("#asc_sort");
-const delete_all_button = document.querySelector("#delete_all_button");
-const desc_sort_button = document.querySelector("#desc_sort");
-const films = document.querySelector("#films");
-const film_name_input = document.querySelector("#film_name");
-const film_director_input = document.querySelector("#film_director");
-const filter_input = document.querySelector("#filter_input");
-const form = document.querySelector("#form");
-const reset_sort_button = document.querySelector("#reset_sort");
+const asc_sort_button = document.querySelector(
+    "#asc_sort"
+) as HTMLButtonElement;
+const delete_all_button = document.querySelector(
+    "#delete_all_button"
+) as HTMLButtonElement;
+const desc_sort_button = document.querySelector(
+    "#desc_sort"
+) as HTMLButtonElement;
+const films = document.querySelector("#films") as HTMLUListElement;
+const film_name_input = document.querySelector(
+    "#film_name"
+) as HTMLInputElement;
+const film_director_input = document.querySelector(
+    "#film_director"
+) as HTMLInputElement;
+const filter_input = document.querySelector(
+    "#filter_input"
+) as HTMLInputElement;
+const form = document.querySelector("#form") as HTMLFormElement;
+const reset_sort_button = document.querySelector(
+    "#reset_sort"
+) as HTMLButtonElement;
 
-const addFilm = (event) => {
+const addFilm = (event: Event) => {
     event.preventDefault();
     if (!film_name_input.value || !film_director_input.value) {
         if (!film_name_input.value) {
@@ -47,21 +61,23 @@ const addFilm = (event) => {
     }
 };
 
-const addFavorite = (event) => {
-    if (event.target.id === "add_favorite_button") {
-        UI.addFavorite(event.target);
-        Storage.addFavorite(event.target);
+const addFavorite = (event: Event) => {
+    const $favoriteButton = event.target as HTMLButtonElement;
+    if ($favoriteButton.id === "add_favorite_button") {
+        UI.addFavorite($favoriteButton);
+        Storage.addFavorite($favoriteButton);
     }
 };
 
-const deleteFilm = (event) => {
-    if (event.target.id === "delete_film_button") {
-        UI.deleteFilm(event.target);
-        Storage.deleteFilm(event.target);
+const deleteFilm = (event: Event) => {
+    const $deleteButton = event.target as HTMLButtonElement;
+    if ($deleteButton.id === "delete_film_button") {
+        UI.deleteFilm($deleteButton);
+        Storage.deleteFilm($deleteButton);
     }
 };
 
-const clearInputs = (...element) => {
+const clearInputs = (...element: Array<HTMLInputElement>) => {
     element.forEach((element) => (element.value = ""));
 };
 
@@ -91,7 +107,7 @@ const filmExists = () => {
 
 const filterFilms = () => UI.filterFilms(filter_input.value, films);
 
-const sortFilms = (type) => UI.sortFilms(filter_input.value, type, films);
+const sortFilms = (type: string) => UI.sortFilms(filter_input.value, type, films);
 
 (() => {
     films.addEventListener("click", addFavorite);
