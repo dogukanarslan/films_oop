@@ -29,6 +29,8 @@ const reset_sort_button = document.querySelector(
     "#reset_sort"
 ) as HTMLButtonElement;
 
+const ui = new UI([]);
+
 const addFilm = (event: Event) => {
     event.preventDefault();
     if (!film_name_input.value || !film_director_input.value) {
@@ -55,7 +57,7 @@ const addFilm = (event: Event) => {
         $("#film_exists").modal();
     } else {
         const film = new Film(film_name_input.value, film_director_input.value);
-        UI.addFilm(film, films);
+        ui.addFilm(film, films);
         Storage.addFilm(film);
         clearInputs(film_name_input, film_director_input);
     }
@@ -64,7 +66,7 @@ const addFilm = (event: Event) => {
 const addFavorite = (event: Event) => {
     const $favoriteButton = event.target as HTMLButtonElement;
     if ($favoriteButton.id === "add_favorite_button") {
-        UI.addFavorite($favoriteButton);
+        ui.addFavorite($favoriteButton);
         Storage.addFavorite($favoriteButton);
     }
 };
@@ -72,7 +74,7 @@ const addFavorite = (event: Event) => {
 const deleteFilm = (event: Event) => {
     const $deleteButton = event.target as HTMLButtonElement;
     if ($deleteButton.id === "delete_film_button") {
-        UI.deleteFilm($deleteButton);
+        ui.deleteFilm($deleteButton);
         Storage.deleteFilm($deleteButton);
     }
 };
@@ -82,14 +84,14 @@ const clearInputs = (...element: Array<HTMLInputElement>) => {
 };
 
 const deleteAllFilms = () => {
-    UI.deleteAllFilms(films);
+    ui.deleteAllFilms(films);
     Storage.deleteAllFilms();
 };
 
 const loadFilms = () => {
     const storedFilms = Storage.getFilms();
-    UI.setFilms(storedFilms);
-    UI.loadFilms(films);
+    ui.setFilms(storedFilms);
+    ui.loadFilms(films);
 };
 
 const validate = () => {
@@ -105,9 +107,10 @@ const filmExists = () => {
     );
 };
 
-const filterFilms = () => UI.filterFilms(filter_input.value, films);
+const filterFilms = () => ui.filterFilms(filter_input.value, films);
 
-const sortFilms = (type: string) => UI.sortFilms(filter_input.value, type, films);
+const sortFilms = (type: string) =>
+    ui.sortFilms(filter_input.value, type, films);
 
 (() => {
     films.addEventListener("click", addFavorite);

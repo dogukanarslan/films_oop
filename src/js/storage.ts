@@ -1,8 +1,8 @@
-import { IFilm } from "../interfaces/models";
+import { Film } from "./film";
 
 class Storage {
     static getFilms() {
-        let films: Array<IFilm>;
+        let films: Array<Film>;
         if (!localStorage.getItem("films")) {
             films = [];
         } else {
@@ -11,7 +11,7 @@ class Storage {
         return films;
     }
 
-    static addFilm(film: IFilm) {
+    static addFilm(film: Film) {
         let films = Storage.getFilms();
         films.push(film);
         localStorage.setItem("films", JSON.stringify(films));
@@ -22,9 +22,10 @@ class Storage {
         const $headingElement = $liElement.firstElementChild as HTMLHeadingElement;
 
         let films = Storage.getFilms();
-        films = films.map((film: IFilm) => {
+        films = films.map((film: Film) => {
             if (film.name === $headingElement.textContent) {
-                return { ...film, is_favorite: !film.is_favorite };
+                film.is_favorite = !film.is_favorite;
+                return film;
             }
 
             return film;

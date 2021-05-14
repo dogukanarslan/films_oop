@@ -1,84 +1,85 @@
 import { Film } from "./film";
-import { IFilm } from "../interfaces/models";
-
-let _films: Array<IFilm> = [];
 
 class UI {
-    static getFilms() {
-        return _films;
+    private films: Array<Film>;
+
+    constructor(films: Array<Film>) {
+        this.films = films;
     }
 
-    static setFilms(val: Array<IFilm>) {
-        _films = val;
+    getFilms() {
+        return this.films;
     }
 
-    static addFilm(film: Film, el: HTMLUListElement) {
+    setFilms(val: Array<Film>) {
+        this.films = val;
+    }
+
+    addFilm(film: Film, el: HTMLUListElement) {
         el.appendChild(film.createElement());
-        const films: Array<IFilm> = UI.getFilms();
-        UI.setFilms([...films, film]);
+        const films: Array<Film> = this.getFilms();
+        this.setFilms([...films, film]);
     }
 
-    static addFavorite(el: HTMLButtonElement) {
+    addFavorite(el: HTMLButtonElement) {
         const $liElement = el.parentElement as HTMLLIElement;
         const $headingElement = $liElement.firstElementChild as HTMLHeadingElement;
 
         $liElement.classList.toggle("border-warning");
-        const films = UI.getFilms().map((film) => {
+        const films = this.getFilms().map((film) => {
             if (film.name === $headingElement.textContent) {
-                return { ...film, is_favorite: !film.is_favorite };
+                film.is_favorite = !film.is_favorite;
+                return film;
             }
 
             return film;
         });
 
-        UI.setFilms(films);
+        this.setFilms(films);
     }
 
-    static deleteFilm(el: HTMLButtonElement) {
+    deleteFilm(el: HTMLButtonElement) {
         const $liElement = el.parentElement as HTMLLIElement;
         const $headingElement = $liElement.firstElementChild as HTMLHeadingElement;
 
         $liElement.remove();
-        const films = UI.getFilms().filter((film) => {
+        const films = this.getFilms().filter((film) => {
             return film.name !== $headingElement.textContent;
         });
 
-        UI.setFilms(films);
+        this.setFilms(films);
     }
 
-    static deleteAllFilms(el: HTMLUListElement, isSoftDelete = false) {
+    deleteAllFilms(el: HTMLUListElement) {
         while (el.firstElementChild) {
             el.firstElementChild.remove();
         }
-
-        if (!isSoftDelete) {
-            UI.setFilms([]);
-        }
     }
 
-    static loadFilms(el: HTMLUListElement, films = UI.getFilms()) {
+    loadFilms(el: HTMLUListElement, films = this.getFilms()) {
+        this.deleteAllFilms(el);
         films.forEach((item) => {
             let film = new Film(item.name, item.director, item.is_favorite);
             el.appendChild(film.createElement());
         });
     }
 
-    static filterFilms(name: string, el: HTMLUListElement) {
-        const currentFilms = UI.getFilms();
+    filterFilms(name: string, el: HTMLUListElement) {
+        const currentFilms = this.getFilms();
 
-        const filteredFilms: Array<IFilm> = [];
+        const filteredFilms: Array<Film> = [];
         currentFilms.forEach((film) => {
             if (film.name.toLowerCase().indexOf(name.toLowerCase()) > -1) {
                 filteredFilms.push(film);
             }
         });
 
-        UI.deleteAllFilms(el, true);
-        UI.loadFilms(el, filteredFilms);
+        this.deleteAllFilms(el);
+        this.loadFilms(el, filteredFilms);
     }
 
-    static sortFilms(name: string, type: string, el: HTMLUListElement) {
-        let currentFilms = UI.getFilms();
+    sortFilms(name: string, type: string, el: HTMLUListElement) {
+        let currentFilms = this.getFilms();
         switch (type) {
             case "asc":
                 currentFilms = currentFilms.sort(function (a, b) {
@@ -110,8 +111,7 @@ class UI {
                 break;
         }
 
-        UI.deleteAllFilms(el, true);
-        UI.loadFilms(el, currentFilms);
+        this.loadFilms(el, currentFilms);
     }
 }
 
