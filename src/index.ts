@@ -4,6 +4,7 @@ import "bootstrap";
 import { Film } from "./js/film";
 import { Storage } from "./js/storage";
 import { UI } from "./js/ui";
+import { SortType } from "./enums/Main";
 
 const asc_sort_button = document.querySelector(
     "#asc_sort"
@@ -109,15 +110,15 @@ const filmExists = () => {
 
 const filterFilms = () => ui.filterFilms(filter_input.value, films);
 
-const sortFilms = (type: string) =>
+const sortFilms = (type: SortType) =>
     ui.sortFilms(filter_input.value, type, films);
 
 (() => {
     films.addEventListener("click", addFavorite);
     films.addEventListener("click", deleteFilm);
     delete_all_button.addEventListener("click", deleteAllFilms);
-    asc_sort_button.addEventListener("click", () => sortFilms("asc"));
-    desc_sort_button.addEventListener("click", () => sortFilms("desc"));
+    asc_sort_button.addEventListener("click", () => sortFilms(SortType.ASC));
+    desc_sort_button.addEventListener("click", () => sortFilms(SortType.DESC));
     reset_sort_button.addEventListener("click", loadFilms);
     film_director_input.addEventListener("keyup", validate);
     filter_input.addEventListener("input", filterFilms);

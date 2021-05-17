@@ -1,4 +1,5 @@
 import { Film } from "./film";
+import { SortType } from "../enums/Main";
 
 class UI {
     private films: Array<Film>;
@@ -78,10 +79,10 @@ class UI {
         this.loadFilms(el, filteredFilms);
     }
 
-    sortFilms(name: string, type: string, el: HTMLUListElement) {
+    sortFilms(name: string, type: SortType, el: HTMLUListElement) {
         let currentFilms = this.getFilms();
         switch (type) {
-            case "asc":
+            case SortType.ASC:
                 currentFilms = currentFilms.sort(function (a, b) {
                     const x = a.name.toLowerCase();
                     const y = b.name.toLowerCase();
@@ -94,7 +95,7 @@ class UI {
                     return 0;
                 });
                 break;
-            case "desc":
+            case SortType.DESC:
                 currentFilms = currentFilms.sort(function (a, b) {
                     const x = a.name.toLowerCase();
                     const y = b.name.toLowerCase();
