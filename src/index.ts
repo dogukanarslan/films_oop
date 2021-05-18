@@ -1,10 +1,11 @@
 import "./styles/main.scss";
 import $ from "jquery";
 import "bootstrap";
-import { Film } from "./js/film";
-import { Storage } from "./js/storage";
-import { UI } from "./js/ui";
-import { SortType } from "./enums/Main";
+import { Film } from "./scripts/film";
+import { Storage } from "./scripts/storage";
+import { UI } from "./scripts/ui";
+import DescendingSort from "./scripts/SortTypes/DescendingSort";
+import AscendingSort from "./scripts/SortTypes/AscendingSort";
 
 const asc_sort_button = document.querySelector(
     "#asc_sort"
@@ -110,15 +111,20 @@ const filmExists = () => {
 
 const filterFilms = () => ui.filterFilms(filter_input.value, films);
 
-const sortFilms = (type: SortType) =>
-    ui.sortFilms(filter_input.value, type, films);
+const sortFilmsByAsc = () => {
+    ui.sortFilms(new AscendingSort(), films);
+};
+
+const sortFilmsByDesc = () => {
+    ui.sortFilms(new DescendingSort(), films);
+};
 
 (() => {
     films.addEventListener("click", addFavorite);
     films.addEventListener("click", deleteFilm);
     delete_all_button.addEventListener("click", deleteAllFilms);
-    asc_sort_button.addEventListener("click", () => sortFilms(SortType.ASC));
-    desc_sort_button.addEventListener("click", () => sortFilms(SortType.DESC));
+    asc_sort_button.addEventListener("click", sortFilmsByAsc);
+    desc_sort_button.addEventListener("click", sortFilmsByDesc);
     reset_sort_button.addEventListener("click", loadFilms);
     film_director_input.addEventListener("keyup", validate);
     filter_input.addEventListener("input", filterFilms);

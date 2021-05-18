@@ -1,5 +1,6 @@
 import { Film } from "./film";
-import { SortType } from "../enums/Main";
+import SortService from "./SortService";
+import { ISort } from "../interfaces/ISort";
 
 class UI {
     private films: Array<Film>;
@@ -79,40 +80,10 @@ class UI {
         this.loadFilms(el, filteredFilms);
     }
 
-    sortFilms(name: string, type: SortType, el: HTMLUListElement) {
-        let currentFilms = this.getFilms();
-        switch (type) {
-            case SortType.ASC:
-                currentFilms = currentFilms.sort(function (a, b) {
-                    const x = a.name.toLowerCase();
-                    const y = b.name.toLowerCase();
-                    if (x < y) {
-                        return -1;
-                    }
-                    if (x > y) {
-                        return 1;
-                    }
-                    return 0;
-                });
-                break;
-            case SortType.DESC:
-                currentFilms = currentFilms.sort(function (a, b) {
-                    const x = a.name.toLowerCase();
-                    const y = b.name.toLowerCase();
-                    if (x > y) {
-                        return -1;
-                    }
-                    if (x < y) {
-                        return 1;
-                    }
-                    return 0;
-                });
-                break;
-            default:
-                break;
-        }
-
-        this.loadFilms(el, currentFilms);
+    sortFilms(type: ISort, el: HTMLUListElement) {
+        const currentFilms = this.getFilms();
+        const sortedFilms = SortService.getSortedValues(type, currentFilms);
+        this.loadFilms(el, sortedFilms);
     }
 }
 
